@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications - Yuan "Larry" Liu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="publications.js"></script>
+  <script src="footer.js"></script>
+  <style>
+    /* Custom styles for the nav bar and layout */
+    .nav-bar {
+      background-color: #1e3a8a; /* Dark blue from the screenshot */
+    }
+    .nav-link {
+      color: white;
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #93c5fd; /* Lighter blue on hover */
+    }
+    * {
+      font-family: 'Lato', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white">
+  <!-- Top Navigation Bar -->
+  <nav class="nav-bar p-4 flex justify-between items-center">
+    <h1 class="text-white text-lg pl-8">Yuan "Larry" Liu</h1>
+    <div class="space-x-4 pr-8">
+      <a href="index.html" class="nav-link text-base">Home</a>
+      <a href="index.html#research" class="nav-link text-base">Research</a>
+      <a href="index.html#talks" class="nav-link text-base">Talks</a>
+      <a href="index.html#teaching" class="nav-link text-base">Teaching</a>
+      <a href="index.html#contact" class="nav-link text-base">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-8 py-12">
+    <h2 class="text-2xl font-bold mb-8">Publications</h2>
+
+    <!-- Search and Filter Section -->
+    <div class="flex gap-4 mb-8">
+      <div class="flex-1">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Search by title, author, year..." 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+      </div>
+      <div class="w-48">
+        <select 
+          id="yearFilter" 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="all">All Years</option>
+          <!-- Years will be populated by JavaScript -->
+        </select>
+      </div>
+    </div>
+
+    <!-- Publications Section -->
+    <section class="mb-12">
+      <div id="publications-by-year">
+        <!-- Publications will be grouped by year here -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Copyright Footer -->
+  <footer class="bg-gray-100 py-6 mt-12">
+    <div class="container mx-auto px-8 text-center text-gray-600">
+      <p>&copy; <span class="copyright-year">2025</span> Yuan Liu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-800 text-white p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-blue-700">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Back to Top Button
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.remove('opacity-0');
+        backToTopButton.classList.add('opacity-100');
+      } else {
+        backToTopButton.classList.remove('opacity-100');
+        backToTopButton.classList.add('opacity-0');
+      }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html> 

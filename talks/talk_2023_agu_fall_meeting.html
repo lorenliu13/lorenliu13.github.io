@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A climate-model-informed stochastic rainfall generator for the Mississippi River Basin - Yuan Liu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Lato', sans-serif;
+    }
+    * {
+      font-family: 'Lato', sans-serif;
+    }
+    .nav-bar {
+      background-color: #1e3a8a;
+    }
+    .nav-link {
+      color: white;
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #93c5fd;
+    }
+  </style>
+</head>
+<body class="bg-white font-sans">
+  <!-- Top Navigation Bar -->
+  <nav class="nav-bar p-4 flex justify-between items-center">
+    <h1 class="text-white text-lg pl-8">Yuan "Larry" Liu</h1>
+    <div class="space-x-4 pr-8">
+      <a href="index.html" class="nav-link text-base">Home</a>
+      <a href="index.html#research" class="nav-link text-base">Research</a>
+      <a href="talks.html" class="nav-link text-base">Talks</a>
+      <a href="index.html#teaching" class="nav-link text-base">Teaching</a>
+      <a href="index.html#contact" class="nav-link text-base">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-8 py-12">
+    <div class="max-w-4xl mx-auto">
+      <!-- A climate-model-informed stochastic rainfall generator for the Mississippi River Basin -->
+      <h1 class="text-3xl font-bold mb-6 text-blue-800">A climate-model-informed stochastic rainfall generator for the Mississippi River Basin</h1>
+      
+      <!-- Talk Details -->
+      <div class="mb-8 text-gray-600">
+        <p class="mb-2">Yuan Liu, Daniel Wright, and David Lorenz</p>
+       <p class="mb-2">AGU Fall Meeting, December, 2023, San Francisco, CA</p>
+      </div>
+
+      <!-- Abstract -->
+      <div class="prose max-w-none">
+        <h2 class="text-2xl font-bold mb-4 text-blue-800">Abstract</h2>
+        <p class="text-gray-700 leading-relaxed text-justify">
+          TBD
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-800 text-white p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-blue-700">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <script>
+    // Back to Top Button
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.remove('opacity-0');
+        backToTopButton.classList.add('opacity-100');
+      } else {
+        backToTopButton.classList.remove('opacity-100');
+        backToTopButton.classList.add('opacity-0');
+      }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html> 

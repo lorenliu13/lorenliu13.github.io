@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talks - Yuan Liu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="talks.js"></script>
+  <script src="footer.js"></script>
+  <style>
+    body {
+      font-family: 'Lato', sans-serif;
+    }
+    * {
+      font-family: 'Lato', sans-serif;
+    }
+    .nav-bar {
+      background-color: #1e3a8a;
+    }
+    .nav-link {
+      color: white;
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #93c5fd;
+    }
+  </style>
+</head>
+<body class="bg-white font-sans">
+  <!-- Top Navigation Bar -->
+  <nav class="nav-bar p-4 flex justify-between items-center">
+    <h1 class="text-white text-lg pl-8">Yuan "Larry" Liu</h1>
+    <div class="space-x-4 pr-8">
+      <a href="index.html" class="nav-link text-base">Home</a>
+      <a href="index.html#research" class="nav-link text-base">Research</a>
+      <a href="talks.html" class="nav-link text-base">Talks</a>
+      <a href="index.html#teaching" class="nav-link text-base">Teaching</a>
+      <a href="index.html#contact" class="nav-link text-base">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-8 py-12">
+    <h2 class="text-3xl font-bold mb-8 text-blue-800">Talks</h2>
+    
+    <!-- Search and Filter Section -->
+    <div class="mb-8 flex flex-col md:flex-row gap-4">
+      <div class="md:w-1/2">
+        <input type="text" id="searchInput" placeholder="Search talks..." 
+               class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <div class="md:w-1/2">
+        <select id="yearFilter" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="all">All Years</option>
+          <!-- Years will be populated by JavaScript -->
+        </select>
+      </div>
+    </div>
+
+    <!-- Talks List -->
+    <div id="talks-by-year">
+      <!-- Talks will be inserted here by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Copyright Footer -->
+  <footer class="bg-gray-100 py-6 mt-12">
+    <div class="container mx-auto px-8 text-center text-gray-600">
+      <p>&copy; <span class="copyright-year">2025</span> Yuan Liu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-800 text-white p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-blue-700">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <script>
+    // Function to group talks by year
+    function groupTalksByYear(talks) {
+      const groups = {};
+      
+      talks.forEach(talk => {
+        const year = talk.year;
+        if (!groups[year]) {
+          groups[year] = [];
+        }
+        groups[year].push(talk);
+      });
+      
+      return Object.entries(groups)
+        .sort(([yearA], [yearB]) => parseInt(yearB) - parseInt(yearA));
+    }
+
+    // Function to generate HTML for a year section
+    function generateYearSectionHTML(year, talks) {
+      return `
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-800 border-b border-gray-200 pb-2">${year}</h3>
+          <ul class="list-disc pl-5">
+            ${talks.map(talk => generateTalkHTML(talk)).join('')}
+          </ul>
+        </div>
+      `;
+    }
+
+    // Function to display talks grouped by year
+    function displayTalksByYear(filteredTalks = talks) {
+      const groupedTalks = groupTalksByYear(filteredTalks);
+      const html = groupedTalks
+        .map(([year, talks]) => generateYearSectionHTML(year, talks))
+        .join('');
+      
+      const container = document.getElementById('talks-by-year');
+      if (container) {
+        container.innerHTML = html;
+      }
+    }
+
+    // Function to get unique years from talks
+    function getUniqueYears() {
+      const years = talks
+        .map(talk => talk.year)
+        .filter(year => !isNaN(year))
+        .sort((a, b) => b - a);
+      return [...new Set(years)];
+    }
+
+    // Function to populate year filter
+    function populateYearFilter() {
+      const yearFilter = document.getElementById('yearFilter');
+      const years = getUniqueYears();
+      
+      years.forEach(year => {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearFilter.appendChild(option);
+      });
+    }
+
+    // Function to filter talks
+    function filterTalks() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const selectedYear = document.getElementById('yearFilter').value;
+      
+      const filteredTalks = talks.filter(talk => {
+        const matchesSearch = (
+          talk.title.toLowerCase().includes(searchTerm) ||
+          talk.event.toLowerCase().includes(searchTerm) ||
+          talk.year.toString().toLowerCase().includes(searchTerm) ||
+          talk.location.toLowerCase().includes(searchTerm)
+        );
+        
+        const matchesYear = selectedYear === 'all' || talk.year === selectedYear;
+        
+        return matchesSearch && matchesYear;
+      });
+      
+      displayTalksByYear(filteredTalks);
+    }
+
+    // Initialize when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      displayTalksByYear();
+      populateYearFilter();
+      
+      // Add event listeners for search and filter
+      document.getElementById('searchInput')?.addEventListener('input', filterTalks);
+      document.getElementById('yearFilter')?.addEventListener('change', filterTalks);
+    });
+
+    // Back to Top Button
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.remove('opacity-0');
+        backToTopButton.classList.add('opacity-100');
+      } else {
+        backToTopButton.classList.remove('opacity-100');
+        backToTopButton.classList.add('opacity-0');
+      }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html> 
