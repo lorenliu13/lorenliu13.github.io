@@ -220,6 +220,8 @@ function getUniqueYears() {
 // Function to populate year filter
 function populateYearFilter() {
   const yearFilter = document.getElementById('yearFilter');
+  if (!yearFilter) return; // Exit if yearFilter doesn't exist
+  
   const years = getUniqueYears();
   
   years.forEach(year => {
@@ -254,23 +256,14 @@ function filterPublications() {
 // Function to display selected publications on main page
 function displaySelectedPublications() {
   const container = document.getElementById('selected-publications');
-  if (!container) {
-    console.error('Could not find selected-publications container');
-    return;
-  }
-
-  // Filter publications to only include those in selectedPublications array
+  if (!container) return; // Exit if container doesn't exist
+  
   const selectedPubs = publications.filter(pub => 
     selectedPublications.includes(pub.title)
   );
-
-  if (selectedPubs.length === 0) {
-    console.error('No selected publications found');
-    return;
-  }
-
+  
   container.innerHTML = selectedPubs
-    .map(publication => generatePublicationHTML(publication))
+    .map(pub => generatePublicationHTML(pub))
     .join('');
 }
 

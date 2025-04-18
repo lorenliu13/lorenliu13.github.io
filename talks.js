@@ -96,14 +96,25 @@ function generateTalkHTML(talk) {
 // Function to display talks
 function displayTalks() {
   const container = document.getElementById('talks-list');
-  if (!container) {
-    console.error('Could not find talks-list container');
-    return;
-  }
-
-  container.innerHTML = talks
-    .map(talk => generateTalkHTML(talk))
-    .join('');
+  if (!container) return; // Exit if container doesn't exist
+  
+  // Sort talks by date in descending order
+  const sortedTalks = [...talks].sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  // Display only the 3 most recent talks
+  const recentTalks = sortedTalks.slice(0, 3);
+  
+  container.innerHTML = recentTalks.map(talk => `
+    <li class="mb-4">
+      <div class="flex items-start">
+        <div class="flex-shrink-0 w-3 h-3 mt-1.5 bg-blue-500 rounded-full"></div>
+        <div class="ml-4">
+          <p class="text-gray-800">${talk.title}</p>
+          <p class="text-sm text-gray-600">${talk.event} - ${talk.date}</p>
+        </div>
+      </div>
+    </li>
+  `).join('');
 }
 
 // Function to display latest talks on main page
