@@ -137,9 +137,13 @@ function displayLatestTalks() {
 
 // Only run browser-specific code if we're in a browser environment
 if (typeof window !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', function() {
-    displayTalks();
-    displayLatestTalks();
+  window.addEventListener('load', function() {
+    if (document.getElementById('talks-list')) {
+      displayTalks();
+    }
+    if (document.getElementById('recent-talks')) {
+      displayLatestTalks();
+    }
   });
 }
 

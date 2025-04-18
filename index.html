@@ -6,8 +6,6 @@
   <title>Yuan Liu</title>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="publications.js"></script>
-  <script src="talks.js"></script>
   <style>
     /* Custom styles for the nav bar and layout */
     body {
@@ -197,6 +195,9 @@
     </svg>
   </button>
 
+  <!-- Scripts -->
+  <script src="publications.js"></script>
+  <script src="talks.js"></script>
   <script>
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -210,6 +211,9 @@
     window.addEventListener('load', function() {
       if (typeof displaySelectedPublications === 'function') {
         displaySelectedPublications();
+      }
+      if (typeof displayTalks === 'function') {
+        displayTalks();
       }
     });
 

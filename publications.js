@@ -269,19 +269,28 @@ function displaySelectedPublications() {
 
 // Initialize when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-  displayPublicationsByYear();
-  populateYearFilter();
-  displaySelectedPublications();
+  // Only run these functions if we're on the publications page
+  if (document.getElementById('publications-by-year')) {
+    displayPublicationsByYear();
+    populateYearFilter();
+    
+    // Add event listeners for search and filter
+    document.getElementById('searchInput')?.addEventListener('input', filterPublications);
+    document.getElementById('yearFilter')?.addEventListener('change', filterPublications);
+  }
   
-  // Add event listeners for search and filter
-  document.getElementById('searchInput')?.addEventListener('input', filterPublications);
-  document.getElementById('yearFilter')?.addEventListener('change', filterPublications);
+  // Always try to display selected publications
+  if (document.getElementById('selected-publications')) {
+    displaySelectedPublications();
+  }
 });
 
 // Only run browser-specific code if we're in a browser environment
 if (typeof window !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', function() {
-    displaySelectedPublications();
+  window.addEventListener('load', function() {
+    if (document.getElementById('selected-publications')) {
+      displaySelectedPublications();
+    }
   });
 }
 
