@@ -20,8 +20,8 @@ const publications = [
     authors: "Yuan Liu, Daniel Wright, Felipe Quintero, Alexander Michalek, Gabriele Villarini, and James Smith",
     journal: "Science Advances",
     journalShort: "Sci. Adv.",
-    year: "Under Revision",
-    link: "#",
+    year: "2025",
+    link: "https://www.science.org/doi/10.1126/sciadv.adt1868",
     figure: "images/publications/sa_2025.png"
   },
   {
